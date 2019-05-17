@@ -13,8 +13,11 @@ import android.content.Context;
 //TODO file_* Смотри, как в camscan сделано, там лучше, потому что пишет на SD карту
 public class PHPInterface {
 	
+	
 	private Context _ctx;
 	public static final int FILE_APPEND = 1;
+	/* Сюда записывается число замен функцией str_replace если передан аргумент getCount */
+	public static int STR_REPLACE_COUNT = 0;
 
 
 	public String file_put_contents(String file, String data)
@@ -95,15 +98,29 @@ public class PHPInterface {
         }
         return p + Integer.toString( n );
     }
-    //TODO test and try Object usage
     public String str_replace( String search, String replace, String subject){
         return subject.replaceAll(search, replace);
     }
-    //TODO test
-    public int intval( String s  ){
-        return Integer.getInteger( s  );
+    /**
+     * @description Заменяет search в subject на replace. Если передан getCount = true записывает в 
+     * STR_REPLACE_COUNT количество замен
+    */
+    public String str_replace( String search, String replace, String subject, boolean getCount){
+		if (getCount) {
+			int n = 0,
+				offset = 0;
+			offset = subject.indexOf(search, offset);
+			while (offset != -1) {
+				n++;
+				offset = subject.indexOf(search, offset + 1);
+			}
+			PHPInterface.STR_REPLACE_COUNT = n;
+		}
+        return subject.replaceAll(search, replace);
     }
-    //TODO test
+    public long intval( String s  ){
+		return Integer.parseInt(s);
+    }
     public boolean in_array( String[] a, String need ){
         int i;
         for (i = 0; i < a.length;  i++ ){
@@ -113,7 +130,6 @@ public class PHPInterface {
         }
         return false;
      }
-	//TODO test
     public boolean in_array( int[] a, int need ){
         int i;
         for (i = 0; i < a.length;  i++ ){
@@ -127,15 +143,19 @@ public class PHPInterface {
        Calendar c = Calendar.getInstance();
        return Math.round(c.getTimeInMillis() / 1000);
      }
-     //TODO test
-     public long count(String[] a) {
-		 return a.length;
+	 /**
+      * @description Считает непустые (не равные null) элементы от нулевого до a.length
+      * Как только найден первый null - длина массива считается найденной
+     */
+	 public long count(Object[] a) {
+		 long sz = 0;
+		 for (int i = a.length - 1; i > -1; i--) {
+			 if (a[i] != null) {
+				 return (i + 1);
+			 }
+		 }
+		 return 0;
 	 }
-	 //TODO test
-	 public long count(int[] a) {
-		 return a.length;
-	 }
-	 //TODO test
 	 public long strlen(String s) {
 		 return s.length();
 	 }
