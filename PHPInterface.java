@@ -1,6 +1,7 @@
-package land.learn.hw17;
+package land.learn.hw19;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
@@ -12,7 +13,6 @@ import java.util.Calendar;
 import android.content.Context;
 //TODO file_* Смотри, как в camscan сделано, там лучше, потому что пишет на SD карту
 public class PHPInterface {
-	
 	
 	private Context _ctx;
 	public static final int FILE_APPEND = 1;
@@ -41,7 +41,7 @@ public class PHPInterface {
 		} catch (Exception e) {
 			return "Could not read file " + file + " with error '" + e.getMessage() + "'";
 		}
-	}	
+	}
 	
 	public PHPInterface(Context ctx) {
 		this._ctx = ctx;
@@ -63,6 +63,21 @@ public class PHPInterface {
 			return "Could not read file " + file + " with error '" + e.getMessage() + "'";
 		}
 	}
+	
+	public boolean file_exists(String file) {
+		try {
+			InputStream inStream = _ctx.openFileInput(file);
+			InputStreamReader rd = new InputStreamReader(inStream);
+			BufferedReader reader = new BufferedReader(rd);
+			try {
+				inStream.close();
+			} catch (Exception alle) {;}
+			return true;
+		} catch (FileNotFoundException e) {
+			return false;
+		}
+	}
+	
 	public String date( String s, long timestamp ){
 		Calendar c = Calendar.getInstance(  );
 		long n = c.getTimeInMillis(  );
@@ -119,9 +134,29 @@ public class PHPInterface {
         return subject.replaceAll(search, replace);
     }
     public long intval( String s  ){
-		return Integer.parseInt(s);
+		int i;
+		String q = "";
+		for (i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '0'
+			 || s.charAt(i) == '1'
+			 || s.charAt(i) == '2'
+			 || s.charAt(i) == '3'
+			 || s.charAt(i) == '4'
+			 || s.charAt(i) == '5'
+			 || s.charAt(i) == '6'
+			 || s.charAt(i) == '7'
+			 || s.charAt(i) == '8'
+			 || s.charAt(i) == '9'
+			) {
+				q += s.charAt(i);
+			}
+		}
+		if (q.length() == 0) {
+			return 0;
+		}
+		return Integer.parseInt(q);
     }
-    public boolean in_array( String[] a, String need ){
+    public boolean in_array(String need,  String[] a){
         int i;
         for (i = 0; i < a.length;  i++ ){
             if( a[i]  == need  ){
@@ -130,11 +165,20 @@ public class PHPInterface {
         }
         return false;
      }
-    public boolean in_array( int[] a, int need ){
+    public boolean in_array(int need, int[] a ){
         int i;
         for (i = 0; i < a.length;  i++ ){
             if( a[i]  == need ){
                 return true ;
+            }
+        }
+        return false;
+     }
+     public boolean in_array(long need, long[] a ){
+        int i;
+        for (i = 0; i < a.length;  i++ ){
+            if( a[i]  == need ){
+                return true;
             }
         }
         return false;
@@ -159,5 +203,15 @@ public class PHPInterface {
 	 public long strlen(String s) {
 		 return s.length();
 	 }
+	 
+	 public String strval(int n) {
+		 return Integer.toString(n);
+	 }
+	 
+	 public String strval(long n) {
+		 return Long.toString(n);
+	 }
+	 
+	 
 	
 }

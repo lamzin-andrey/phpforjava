@@ -1,4 +1,4 @@
-package land.learn.hw17;
+package land.learn.hw19;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
@@ -17,6 +17,8 @@ import android.util.Log;
 import android.os.PowerManager;
 import android.webkit.WebView;
 import android.widget.Toast;
+import android.content.res.Configuration;
+import java.util.Locale;
 
 //for launch service
 import android.content.Intent;
@@ -45,6 +47,9 @@ public class SimpleActivity extends Activity{
 	//for exit on run
 	private static final int DELAYED_MESSAGE = 1;
 	private Handler handler;
+	
+	//for hide load scrn
+	private static final int HIDE_LDR_MSG = 2;
 
 
 	/** Вызывается  когда активность вперые создана. */
@@ -71,6 +76,9 @@ public class SimpleActivity extends Activity{
 				if (msg.what == DELAYED_MESSAGE) {
 					SimpleActivity.this.finish();
 				}
+				if (msg.what == HIDE_LDR_MSG) {
+					SimpleActivity.this.mWebView.loadUrl("javascript:window.hideLoadScrn();"); 
+				}
 				super.handleMessage(msg);
 			}
 		};
@@ -80,6 +88,12 @@ public class SimpleActivity extends Activity{
 			DisplayManager.setWindowBrightness(brigntness, getWindow());
 			Message msg = handler.obtainMessage(DELAYED_MESSAGE);
 			handler.sendMessageDelayed(msg, 1000);
+		} else {
+			DisplayManager.setWindowBrightness(brigntness, getWindow());
+			Message msg = handler.obtainMessage(HIDE_LDR_MSG);
+			handler.sendMessageDelayed(msg, 5*1000);
+			stopDMService();
+			startDMService();
 		}
     }
 	
@@ -98,6 +112,12 @@ public class SimpleActivity extends Activity{
 			return false;
 		}
 		return true;
+	}
+	
+	public String getSystemLocale() {
+		Configuration cnf = this.getResources().getConfiguration();
+		//return cnf.locale.getDisplayLanguage(); "русский"! прикольно, но не нужно
+		return cnf.locale.getLanguage();
 	}
 	
 	public boolean stopDMService()
