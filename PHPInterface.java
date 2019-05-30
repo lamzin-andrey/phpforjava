@@ -138,15 +138,15 @@ public class PHPInterface {
 		String q = "";
 		for (i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '0'
-			 || s.charAt(i) == '1'
-			 || s.charAt(i) == '2'
-			 || s.charAt(i) == '3'
-			 || s.charAt(i) == '4'
-			 || s.charAt(i) == '5'
-			 || s.charAt(i) == '6'
-			 || s.charAt(i) == '7'
-			 || s.charAt(i) == '8'
-			 || s.charAt(i) == '9'
+			|| s.charAt(i) == '1'
+			|| s.charAt(i) == '2'
+			|| s.charAt(i) == '3'
+			|| s.charAt(i) == '4'
+			|| s.charAt(i) == '5'
+			|| s.charAt(i) == '6'
+			|| s.charAt(i) == '7'
+			|| s.charAt(i) == '8'
+			|| s.charAt(i) == '9'
 			) {
 				q += s.charAt(i);
 			}
@@ -187,31 +187,31 @@ public class PHPInterface {
        Calendar c = Calendar.getInstance();
        return Math.round(c.getTimeInMillis() / 1000);
      }
-	 /**
+	/**
       * @description Считает непустые (не равные null) элементы от нулевого до a.length
       * Как только найден первый null - длина массива считается найденной
      */
-	 public long count(Object[] a) {
-		 long sz = 0;
-		 for (int i = a.length - 1; i > -1; i--) {
-			 if (a[i] != null) {
-				 return (i + 1);
-			 }
-		 }
-		 return 0;
-	 }
-	 public long strlen(String s) {
-		 return s.length();
-	 }
-	 
-	 public String strval(int n) {
-		 return Integer.toString(n);
-	 }
-	 
-	 public String strval(long n) {
-		 return Long.toString(n);
-	 }
-	 
-	 
+	public long count(Object[] a) {
+		long sz = 0;
+		for (int i = a.length - 1; i > -1; i--) {
+			if (a[i] != null) {
+				return (i + 1);
+			}
+		}
+		return 0;
+	}
+	public long strlen(String s) {
+		return s.length();
+	}
+	
+	public String strval(int n) {
+		return Integer.toString(n);
+	}
+	
+	public String strval(long n) {
+		return Long.toString(n);
+	}
+	
+	
 	
 }
