@@ -85,42 +85,42 @@ public class PHPInterface {
 		s = _date( s, c  );
 		c.setTimeInMillis( n);
 		return s;
-    }
-    public String date( String s  ){
-        Calendar c = Calendar.getInstance(  );
-        return _date( s, c  );
-    }
-    public String _date( String s, Calendar c  ){
-        String Y  = _zero(  c.get(Calendar.YEAR) );
-        String m = _zero(  c.get(Calendar.MONTH ) + 1
-        );
-        String d = _zero(  c.get(Calendar.DATE  ) );
-        String H = _zero( c.get(Calendar.HOUR_OF_DAY ) );
-        String i = _zero( c.get(Calendar.MINUTE));
-        String sec = _zero( c.get(Calendar.SECOND ));
-        s  = s.replaceAll( "Y", Y );
-        s = s.replaceAll( "m", m  );
-        s = s.replaceAll( "d", d  );
-        s = s.replaceAll( "H", H );
-        s = s.replaceAll( "i", i  );
-        s = s.replaceAll( "s", sec  );
-        return s;
-    }
-    private String _zero( int n  ){
-        String p = "";
-        if( n < 10 ){
-            p = "0";
-        }
-        return p + Integer.toString( n );
-    }
-    public String str_replace( String search, String replace, String subject){
-        return subject.replaceAll(search, replace);
-    }
-    /**
-     * @description Заменяет search в subject на replace. Если передан getCount = true записывает в 
-     * STR_REPLACE_COUNT количество замен
-    */
-    public String str_replace( String search, String replace, String subject, boolean getCount){
+	}
+	public String date( String s  ){
+		Calendar c = Calendar.getInstance(  );
+		return _date( s, c  );
+	}
+	public String _date( String s, Calendar c  ){
+		String Y  = _zero(  c.get(Calendar.YEAR) );
+		String m = _zero(  c.get(Calendar.MONTH ) + 1
+		);
+		String d = _zero(  c.get(Calendar.DATE  ) );
+		String H = _zero( c.get(Calendar.HOUR_OF_DAY ) );
+		String i = _zero( c.get(Calendar.MINUTE));
+		String sec = _zero( c.get(Calendar.SECOND ));
+		s  = s.replaceAll( "Y", Y );
+		s = s.replaceAll( "m", m  );
+		s = s.replaceAll( "d", d  );
+		s = s.replaceAll( "H", H );
+		s = s.replaceAll( "i", i  );
+		s = s.replaceAll( "s", sec  );
+		return s;
+	}
+	private String _zero( int n  ){
+		String p = "";
+		if( n < 10 ){
+			p = "0";
+		}
+		return p + Integer.toString( n );
+	}
+	public String str_replace( String search, String replace, String subject){
+		return subject.replaceAll(search, replace);
+	}
+	/**
+	 * @description Заменяет search в subject на replace. Если передан getCount = true записывает в 
+	 * STR_REPLACE_COUNT количество замен
+	*/
+	public String str_replace( String search, String replace, String subject, boolean getCount){
 		if (getCount) {
 			int n = 0,
 				offset = 0;
@@ -131,9 +131,9 @@ public class PHPInterface {
 			}
 			PHPInterface.STR_REPLACE_COUNT = n;
 		}
-        return subject.replaceAll(search, replace);
-    }
-    public long intval( String s  ){
+		return subject.replaceAll(search, replace);
+	}
+	public long intval( String s  ){
 		int i;
 		String q = "";
 		for (i = 0; i < s.length(); i++) {
@@ -155,42 +155,42 @@ public class PHPInterface {
 			return 0;
 		}
 		return Integer.parseInt(q);
-    }
-    public boolean in_array(String need,  String[] a){
-        int i;
-        for (i = 0; i < a.length;  i++ ){
-            if( a[i]  == need  ){
-                return true ;
-            }
-        }
-        return false;
-     }
-    public boolean in_array(int need, int[] a ){
-        int i;
-        for (i = 0; i < a.length;  i++ ){
-            if( a[i]  == need ){
-                return true ;
-            }
-        }
-        return false;
-     }
-     public boolean in_array(long need, long[] a ){
-        int i;
-        for (i = 0; i < a.length;  i++ ){
-            if( a[i]  == need ){
-                return true;
-            }
-        }
-        return false;
-     }
-     public long time(){
-       Calendar c = Calendar.getInstance();
-       return Math.round(c.getTimeInMillis() / 1000);
-     }
+	}
+	public boolean in_array(String need,  String[] a){
+		int i;
+		for (i = 0; i < a.length;  i++ ){
+			if( a[i]  == need  ){
+				return true ;
+			}
+		}
+		return false;
+	 }
+	public boolean in_array(int need, int[] a ){
+		int i;
+		for (i = 0; i < a.length;  i++ ){
+			if( a[i]  == need ){
+				return true ;
+			}
+		}
+		return false;
+	 }
+	 public boolean in_array(long need, long[] a ){
+		int i;
+		for (i = 0; i < a.length;  i++ ){
+			if( a[i]  == need ){
+				return true;
+			}
+		}
+		return false;
+	 }
+	 public long time(){
+	   Calendar c = Calendar.getInstance();
+	   return Math.round(c.getTimeInMillis() / 1000);
+	 }
 	/**
-      * @description Считает непустые (не равные null) элементы от нулевого до a.length
-      * Как только найден первый null - длина массива считается найденной
-     */
+	  * @description Считает непустые (не равные null) элементы от нулевого до a.length
+	  * Как только найден первый null - длина массива считается найденной
+	 */
 	public long count(Object[] a) {
 		long sz = 0;
 		for (int i = a.length - 1; i > -1; i--) {
@@ -211,7 +211,4 @@ public class PHPInterface {
 	public String strval(long n) {
 		return Long.toString(n);
 	}
-	
-	
-	
 }
