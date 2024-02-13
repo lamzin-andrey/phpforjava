@@ -72,7 +72,7 @@ public class SimpleActivity extends Activity{
         mWebView.loadUrl("file:///android_asset/www/index.html"); 
         //mWebView.loadUrl("javascript://alert(101);"); 
         AndroidUlib.APP = this;
-        mWebView.addJavascriptInterface (this, "Qt");
+        mWebView.addJavascriptInterface (this, "Droid");
         
         _mPhp = new PHPInterface(getApplicationContext());
         mWebView.addJavascriptInterface (_mPhp, "PHP");
